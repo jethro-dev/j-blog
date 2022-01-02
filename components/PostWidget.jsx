@@ -26,7 +26,7 @@ const PostWidget = ({ categories, slug }) => {
         {slug ? "Related Posts" : "Recent Posts"}
       </h3>
       {relatedPosts.map((post) => (
-        <Link href={`/post/${post.slug}`}>
+        <Link href={`/post/${post.slug}`} key={post.slug}>
           <div
             key={post.title}
             className="block sm:flex items-center gap-4 mb-1 p-2 pb-4 rounded-md cursor-pointer hover:bg-gray-200 transition-colors duration-300"
