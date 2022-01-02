@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { PostCard, Categories, PostWidget } from "../components";
 import { getPosts } from "../services";
+import { FeaturedPosts } from "../sections";
 
 export default function Home({ posts }) {
   const sortedPosts = posts.sort(
@@ -14,6 +15,7 @@ export default function Home({ posts }) {
       </Head>
       <section className="bg-zinc-200 dark:bg-gray-500 transition-colors px-5">
         <div className="max-w-7xl mx-auto py-10">
+          <FeaturedPosts />
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             <div className="md:col-span-8 col-span-1 ">
               {sortedPosts?.map((post) => (
