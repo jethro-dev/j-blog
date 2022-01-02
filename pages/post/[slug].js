@@ -37,7 +37,9 @@ const Post = ({ post }) => {
                 <Author author={post?.author} />
                 <PostWidget
                   slug={post?.slug}
-                  categories={post?.categories.map((category) => category.slug)}
+                  categories={post?.categories?.map(
+                    (category) => category.slug
+                  )}
                 />
                 <Categories />
               </div>

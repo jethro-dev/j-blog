@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import { PostCard, Categories, PostWidget } from "../components";
 import { getPosts } from "../services";
 
@@ -17,7 +16,7 @@ export default function Home({ posts }) {
         <div className="max-w-7xl mx-auto py-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             <div className="md:col-span-8 col-span-1 ">
-              {sortedPosts.map((post) => (
+              {sortedPosts?.map((post) => (
                 <PostCard key={post.node.title} post={post.node} />
               ))}
             </div>
