@@ -11,7 +11,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="h-[70px] px-10 sticky top-0 bg-white dark:bg-gray-500 transition-colors shadow-sm z-50">
+    <nav className="h-[70px] px-10 sticky top-0 bg-white dark:bg-gray-500 transition-colors shadow-sm z-[9999]">
       <div className="max-w-7xl m-auto h-full flex justify-between items-center">
         <div className="">
           <Link href="/">
