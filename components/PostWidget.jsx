@@ -21,10 +21,11 @@ const PostWidget = ({ categories, slug }) => {
   }, [slug]);
 
   return (
-    <div className="bg-white mb-5 rounded-lg py-4 px-5 shadow-md">
+    <div className="bg-transparent mb-5 py-4 px-5">
       <h3 className="text-lg font-medium border-b mb-4 pb-2">
         {slug ? "Related Posts" : "Recent Posts"}
       </h3>
+
       {relatedPosts.map((post) => (
         <Link href={`/post/${post.slug}`} key={post.slug}>
           <div

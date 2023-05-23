@@ -13,7 +13,7 @@ export default function Home({ posts }) {
       <Head>
         <title>JBLOG | Home</title>
       </Head>
-      <section className="bg-zinc-200 dark:bg-gray-500 transition-colors px-5">
+      <section className="bg-white dark:bg-gray-500 transition-colors px-5">
         <div className="max-w-7xl mx-auto py-10">
           <FeaturedPosts />
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">

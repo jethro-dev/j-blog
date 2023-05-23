@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import { getPosts, getPostDetails } from "../../services";
+import { getPosts, getPostDetails, getSimilarPosts } from "../../services";
 import {
   PostDetail,
   Categories,
@@ -10,40 +10,49 @@ import {
   CommentsForm,
 } from "../../components";
 import { useRouter } from "next/router";
+import RelatedPostGrid from "../../components/RelatedPostGrid";
 
 const Post = ({ post }) => {
+  const [relatedPosts, setRelatedPosts] = useState([]);
   const router = useRouter();
 
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
 
+  useEffect(() => {
+    let categories = post?.categories?.map((category) => category.slug);
+    if (post.slug) {
+      getSimilarPosts(categories, post.slug).then((result) =>
+        setRelatedPosts(result)
+      );
+    }
+  }, [post.slug]);
+
   return (
     <>
       <Head>
         <title>{post?.title}</title>
       </Head>
-      <section className="bg-zinc-200 dark:bg-gray-500 transition-colors px-5">
-        <div className="max-w-7xl mx-auto py-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 md:gap-6">
-            <div className="md:col-span-8 col-span-1 ">
-              <PostDetail post={post} />
-              <CommentsForm slug={post?.slug} />
-              <Comments slug={post?.slug} />
-            </div>
+      <section className="bg-white">
+        <PostDetail post={post} />
 
-            <div className="md:col-span-4 col-span-1">
-              <div className="md:sticky relative md:top-[110px]">
-                <Author author={post?.author} />
-                <PostWidget
-                  slug={post?.slug}
-                  categories={post?.categories?.map(
-                    (category) => category.slug
-                  )}
-                />
-                <Categories />
-              </div>
-            </div>
+        <div className="max-w-3xl mx-auto">
+          <CommentsForm slug={post?.slug} />
+          <Comments slug={post?.slug} />
+
+          {/* <Author author={post?.author} /> */}
+
+          {/* <Categories /> */}
+        </div>
+
+        <div className="bg-neutral-100 py-10">
+          <div className="max-w-3xl mx-auto">
+            {/* <PostWidget
+              slug={post?.slug}
+              categories={post?.categories?.map((category) => category.slug)}
+            /> */}
+            <RelatedPostGrid posts={relatedPosts} />
           </div>
         </div>
       </section>

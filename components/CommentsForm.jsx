@@ -57,7 +57,7 @@ const CommentsForm = ({ slug }) => {
   };
 
   return (
-    <div className="bg-white mb-5 rounded-lg py-4 px-5 shadow-md">
+    <div className="bg-white mb-5 py-4 px-5">
       <h3 className="text-lg font-medium border-b mb-4 pb-2">Leave a Reply</h3>
       {/* comment div*/}
       <form onSubmit={handleSubmit}>
