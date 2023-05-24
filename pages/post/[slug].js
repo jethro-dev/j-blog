@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import { getPosts, getPostDetails, getSimilarPosts } from "../../services";
+import {
+  getPosts,
+  getPostDetails,
+  getSimilarPosts,
+  getComments,
+} from "../../services";
 import {
   PostDetail,
   Categories,
@@ -11,14 +16,13 @@ import {
 } from "../../components";
 import { useRouter } from "next/router";
 import RelatedPostGrid from "../../components/RelatedPostGrid";
+import Drawer from "../../components/Drawer";
 
 const Post = ({ post }) => {
   const [relatedPosts, setRelatedPosts] = useState([]);
+  const [isCartOpened, setIsCartOpened] = useState(false);
+  const [comments, setComments] = useState([]);
   const router = useRouter();
-
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
 
   useEffect(() => {
     let categories = post?.categories?.map((category) => category.slug);
@@ -26,25 +30,38 @@ const Post = ({ post }) => {
       getSimilarPosts(categories, post.slug).then((result) =>
         setRelatedPosts(result)
       );
+      getComments(post.slug).then((result) => setComments(result));
     }
-  }, [post.slug]);
+  }, []);
+
+  const toggleCommentDrawer = () => {
+    if (!isCartOpened) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
+    setIsCartOpened(!isCartOpened);
+  };
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
       <Head>
         <title>{post?.title}</title>
       </Head>
+      <Drawer
+        isOpen={isCartOpened}
+        setIsOpen={toggleCommentDrawer}
+        title={`Response (${comments.length})`}
+      >
+        <CommentsForm slug={post?.slug} />
+        <Comments comments={comments} />
+      </Drawer>
       <section className="bg-white">
-        <PostDetail post={post} />
-
-        <div className="max-w-3xl mx-auto">
-          <CommentsForm slug={post?.slug} />
-          <Comments slug={post?.slug} />
-
-          {/* <Author author={post?.author} /> */}
-
-          {/* <Categories /> */}
-        </div>
+        <PostDetail post={post} toggleCommentDrawer={toggleCommentDrawer} />
 
         <div className="bg-neutral-100 py-10">
           <div className="max-w-3xl mx-auto">

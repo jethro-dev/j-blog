@@ -3,6 +3,7 @@ import Link from "next/link";
 import moment from "moment";
 
 const PostGridCard = ({ post }) => {
+  console.log(post);
   return (
     <Link href={`/post/${post.slug}`} key={post.slug} className="col-span-1">
       <div className="group bg-neutral-100 hover:bg-white cursor-pointer transition-colors duration-300 ">
@@ -17,10 +18,7 @@ const PostGridCard = ({ post }) => {
           <h5 className="text-md md:text-sm font-semibold mb-2 group-hover:underline">
             {post.title}
           </h5>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error,
-            quis.
-          </p>
+          <p className="text-xs font-normal mb-2">{post.excerpt}</p>
           <p className="text-xs font-thin">
             {moment(post.createdAt).format("MMM D, YYYY")}
           </p>

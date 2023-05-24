@@ -1,7 +1,9 @@
 import Head from "next/head";
 import { PostCard, Categories, PostWidget } from "../components";
 import { getPosts } from "../services";
-import { FeaturedPosts } from "../sections";
+import FeaturedPosts from "../components/FeaturedPosts";
+import { useState } from "react";
+import Drawer from "../components/Drawer";
 
 export default function Home({ posts }) {
   const sortedPosts = posts.sort(
@@ -13,9 +15,12 @@ export default function Home({ posts }) {
       <Head>
         <title>JBLOG | Home</title>
       </Head>
+
       <section className="bg-white dark:bg-gray-500 transition-colors px-5">
-        <div className="max-w-7xl mx-auto py-10">
+        <div className="max-w-6xl mx-auto py-10">
+          <h2 className="text-xl mb-4">Trending</h2>
           <FeaturedPosts />
+          <hr className="my-8" />
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             <div className="md:col-span-8 col-span-1 ">
               {sortedPosts?.map((post) => (
@@ -25,7 +30,7 @@ export default function Home({ posts }) {
 
             <div className="md:col-span-4 col-span-1">
               <div className="md:sticky relative md:top-[110px]">
-                <PostWidget />
+                {/* <PostWidget /> */}
                 <Categories />
               </div>
             </div>

@@ -5,7 +5,7 @@ import moment from "moment";
 import ReactMarkdown from "react-markdown";
 import Author from "./Author";
 
-const PostDetail = ({ post }) => {
+const PostDetail = ({ post, toggleCommentDrawer }) => {
   return (
     <div className="bg-white mb-5 rounded-lg">
       {/* post header*/}
@@ -33,7 +33,9 @@ const PostDetail = ({ post }) => {
         <div className="flex items-center justify-between border-t-[1px] border-b-[1px] border-neutral-200 py-4 text-sm">
           <div className="flex items-center gap-2">
             <span>Like</span>
-            <span>Comment</span>
+            <button type="button" onClick={toggleCommentDrawer}>
+              Comment
+            </button>
           </div>
 
           <div className="flex items-center gap-2">

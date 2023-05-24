@@ -3,16 +3,18 @@ import Link from "next/link";
 import { Switch } from ".";
 import { getCategories } from "../services";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const Navbar = () => {
   const [categories, setCategories] = useState([]);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     getCategories().then((result) => setCategories(result));
   }, []);
 
   return (
-    <nav className="h-[70px] px-10 sticky top-0 bg-white dark:bg-gray-500 transition-colors shadow-sm z-[9999]">
+    <nav className="h-[70px] px-10 sticky top-0 bg-white dark:bg-gray-500 transition-colors shadow-sm z-50">
       <div className="max-w-8xl m-auto h-full flex justify-between items-center">
         <div className="flex items-center gap-4">
           {/* Logo */}
@@ -41,6 +43,18 @@ const Navbar = () => {
               </a>
             </Link>
           ))}
+
+          {/* User */}
+          {session ? (
+            <p>
+              <span>Signed in as {session?.user?.email}</span>
+              <button onClick={signOut}>Sign out</button>
+            </p>
+          ) : (
+            <>
+              <Link href="/signin">Sign in</Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

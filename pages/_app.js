@@ -1,12 +1,22 @@
 import { useState, useEffect } from "react";
 import "../styles/globals.scss";
 import { Layout } from "../components";
+import { SessionProvider } from "next-auth/react";
+import { useRouter } from "next/router";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const router = useRouter();
+
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <SessionProvider session={session}>
+      {router.pathname == "/signin" ? (
+        <Component {...pageProps} />
+      ) : (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      )}
+    </SessionProvider>
   );
 }
 
