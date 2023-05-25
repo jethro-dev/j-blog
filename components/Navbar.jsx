@@ -36,13 +36,13 @@ const Navbar = () => {
         {/* Left */}
         <div className="flex justify-between items-center gap-1">
           {/* Links */}
-          {categories.map(({ name, slug }) => (
+          {/* {categories.map(({ name, slug }) => (
             <Link key={slug} href={`/`}>
               <a className="rounded-lg px-3 py-2 text-zinc-500 font-medium hover:bg-gray-300 hover:text-zinc-900 transition-colors duration-300 dark:hover:bg-gray-600 dark:text-gray-100">
                 {name}
               </a>
             </Link>
-          ))}
+          ))} */}
 
           {/* User */}
           {session ? (
