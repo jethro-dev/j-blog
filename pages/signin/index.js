@@ -9,6 +9,7 @@ import { signIn, useSession } from "next-auth/react";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 const SignInPage = () => {
   const [email, setEmail] = useState(null);
@@ -20,11 +21,12 @@ const SignInPage = () => {
 
   const handlePasswordlessSignin = async (e) => {
     e.preventDefault();
+
     const result = await signIn("credentials", {
       redirect: false,
       email,
       password,
-      isRegister: false,
+      isRegister: isRegisterPage,
       callbackUrl: "/",
     });
 
@@ -56,8 +58,16 @@ const SignInPage = () => {
 
   return (
     <section className="h-screen ring-inset grid place-items-center bg-neutral-50">
-      <form className="relative ring-1 max-w-2xl w-full mx-auto shadow-lg ring-neutral-100 px-20 py-20 h-full lg:h-[700px] bg-white">
-        {/* logo div */}
+      <form className="relative ring-1 max-w-2xl w-full mx-auto shadow-lg ring-neutral-100 px-20 py-28 h-full lg:h-[700px] bg-white">
+        {/* back to home page btn */}
+        <button type="button" className="absolute top-0 left-0 m-8">
+          <Link href="/">
+            <span className="flex items-center gap-2 text-neutral-800 font-normal hover:underline text-sm">
+              <ArrowLeftIcon className="h-4 w-4" />
+              Back to home
+            </span>
+          </Link>
+        </button>
 
         <div className="grid place-items-center select-none text-center">
           <h1 className="text-3xl font-medium mb-6">
